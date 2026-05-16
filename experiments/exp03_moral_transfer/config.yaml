@@ -1,0 +1,20 @@
+# exp03 — End-to-end moral transfer (Layer 3 + bridge).
+
+extends: ../../configs/default.yaml
+
+experiment:
+  id: exp03_moral_transfer
+  description: >
+    Pre/post moral-dilemma test linking narrative exposure to measurable
+    transfer deltas. Demonstrates the architecture end-to-end.
+
+bridge:
+  dilemma_corpus: moral_stories  # or moral_story_storal
+  matching:
+    foundation_similarity_min: 0.7
+    surface_similarity_max: 0.3
+  prompts:
+    dilemma_response: dilemma_response.v0
+
+output:
+  path: experiments/exp03_moral_transfer/results

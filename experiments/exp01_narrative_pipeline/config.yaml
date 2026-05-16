@@ -1,0 +1,25 @@
+# exp01 — Narrative-pipeline sanity on two prototype texts.
+#
+# Extends configs/default.yaml. Override only what changes.
+
+extends: ../../configs/default.yaml
+
+experiment:
+  id: exp01_narrative_pipeline
+  description: >
+    Run Layer 1 on the two prototype texts; produce structured
+    NarrativeFeatures records and a small validation table.
+
+corpus:
+  texts:
+    - TBD_fairy_tale
+    - TBD_realistic_short_story
+
+pipeline:
+  layers: [narrative]
+  prompts:
+    narrative_features: narrative_features.v0
+    moral_extraction: moral_extraction.v0
+
+output:
+  path: experiments/exp01_narrative_pipeline/results

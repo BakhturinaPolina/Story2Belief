@@ -1,0 +1,26 @@
+# exp02 — Reader cohort variation (Layer 2).
+
+extends: ../../configs/default.yaml
+
+experiment:
+  id: exp02_reader_variation
+  description: >
+    Build a synthetic cohort and run the reading loop on the two
+    prototype texts. Verify that trait variation produces interpretable
+    differences in adapted SWAS responses.
+
+cohort:
+  size: 50
+  seed: 42
+  profiles_path: configs/reader_profiles.yaml
+
+reading:
+  texts:
+    - TBD_fairy_tale
+    - TBD_realistic_short_story
+  prompts:
+    reader_persona: reader_persona.v0
+    swas_self_report: swas_self_report.v0
+
+output:
+  path: experiments/exp02_reader_variation/results

@@ -1,0 +1,39 @@
+# Registry of texts available to Layer 1.
+#
+# `path` is relative to data/raw/stories/ and is gitignored in practice.
+# `license` and `notes` are required for any non-public-domain text.
+
+texts:
+  - id: TBD_fairy_tale
+    title: "TBD — fairy tale"
+    author: "TBD"
+    genre: fairy_tale
+    language: en
+    path: TBD/fairy_tale.txt
+    license: public_domain
+    notes: >
+      Placeholder. Choose a Grimm or Andersen story with a clear moral
+      and contrast in story-world distance vs. the realistic short story.
+
+  - id: TBD_realistic_short_story
+    title: "TBD — realistic short story"
+    author: "TBD"
+    genre: realistic
+    language: en
+    path: TBD/realistic_short_story.txt
+    license: TBD
+    notes: >
+      Placeholder. Prefer a 20th- or 21st-century short story with low
+      story-world distance and an implicit (not didactic) moral.
+
+# Negative-control / non-narrative passage(s).
+controls:
+  - id: TBD_factual_prose
+    title: "TBD — factual / encyclopedic prose"
+    genre: non_narrative
+    language: en
+    path: TBD/factual.txt
+    license: TBD
+    notes: >
+      Length- and topic-matched factual passage used as a non-narrative
+      control. See docs/14-experiments.md.

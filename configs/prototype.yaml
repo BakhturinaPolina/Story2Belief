@@ -1,0 +1,27 @@
+# Story2Belief — prototype run config (3-month committee demo).
+#
+# 2 texts × ≤50 readers × 1 transfer task. See ADR
+# docs/decisions/0004-prototype-scope-2-texts-50-readers.md.
+
+extends: default.yaml
+
+run:
+  id: prototype_v0
+  description: End-to-end demo across the three layers.
+
+corpus:
+  texts:
+    - TBD_fairy_tale
+    - TBD_realistic_short_story
+
+cohort:
+  size: 50
+  seed: 42
+  profiles_path: configs/reader_profiles.yaml
+
+bridge:
+  dilemma_corpus: moral_stories
+  pre_post_pairing: matched_foundation
+
+output:
+  path: results/prototype_v0

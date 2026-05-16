@@ -1,0 +1,60 @@
+# Trait sampling ranges for the synthetic reader cohort.
+#
+# All ranges are theory-constrained but synthetic; they do not claim to
+# match any real population. See docs/09-reader-trait-schema.md.
+
+defaults:
+  distribution: truncated_normal
+  range: [0.0, 10.0]
+
+traits:
+  transportability:
+    mean: 5.5
+    sd: 1.8
+  empathy:
+    mean: 5.5
+    sd: 1.8
+  need_for_affect:
+    mean: 5.0
+    sd: 1.5
+  need_for_cognition:
+    mean: 5.5
+    sd: 1.5
+  reading_exposure:
+    mean: 5.0
+    sd: 2.0
+  theme_relevance:
+    mean: 5.0
+    sd: 2.0
+  realism_preference:
+    mean: 5.0
+    sd: 2.0
+  source_memory_decay:
+    range: [0.0, 1.0]
+    mean: 0.3
+    sd: 0.15
+
+baseline_moral_foundation_scores:
+  care_harm:
+    mean: 6.0
+    sd: 1.5
+  fairness_cheating:
+    mean: 6.0
+    sd: 1.5
+  loyalty_betrayal:
+    mean: 5.0
+    sd: 2.0
+  authority_subversion:
+    mean: 4.5
+    sd: 2.0
+  sanctity_degradation:
+    mean: 4.5
+    sd: 2.0
+
+# Force-include extreme contrast pairs so trait-driven differences are
+# visible at small N.
+contrast_pairs:
+  - high_transport_high_empathy
+  - low_transport_low_empathy
+  - high_nfc_low_nfa
+  - low_nfc_high_nfa

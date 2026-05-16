@@ -1,0 +1,42 @@
+# Story2Belief — default config.
+#
+# Concrete experiments inherit from this file and override what they need.
+
+project:
+  name: story2belief
+  seed: 42
+
+paths:
+  data_root: data
+  raw: data/raw
+  external: data/external
+  interim: data/interim
+  processed: data/processed
+  synthetic: data/synthetic
+  results: results
+
+llm:
+  default_model: gpt-4o-mini
+  temperature: 0.0
+  json_mode: true
+
+logging:
+  level: INFO
+
+# Layer-specific defaults; experiment configs override.
+narrative:
+  prompts:
+    narrative_features: narrative_features.v0
+    moral_extraction: moral_extraction.v0
+
+readers:
+  prompts:
+    reader_persona: reader_persona.v0
+    swas_self_report: swas_self_report.v0
+
+bridge:
+  prompts:
+    dilemma_response: dilemma_response.v0
+  matching:
+    foundation_similarity_min: 0.7
+    surface_similarity_max: 0.3
