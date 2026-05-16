@@ -1,0 +1,19 @@
+%% Story2Belief — sequence view of the prototype run
+%% See docs/02-prototype-roadmap-3mo.md
+
+sequenceDiagram
+    autonumber
+    participant Cfg as configs/prototype.yaml
+    participant Pipe as Layer 1: Narrative pipeline
+    participant Cohort as Layer 2: Reader cohort
+    participant Bridge as Layer 3: Moral-transfer bridge
+    participant Out as data/processed/
+
+    Cfg ->> Pipe: corpus paths + prompt versions
+    Pipe ->> Out: NarrativeFeatures (per text)
+    Cfg ->> Cohort: trait sampling ranges + N
+    Cohort ->> Out: ReaderProfile (per agent)
+    Out ->> Cohort: NarrativeFeatures
+    Cohort ->> Out: ReadingResponse (per agent x text)
+    Out ->> Bridge: NarrativeFeatures + ReadingResponse + dilemma corpus
+    Bridge ->> Out: TransferDeltas (per agent x text)

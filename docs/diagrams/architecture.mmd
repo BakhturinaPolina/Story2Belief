@@ -1,0 +1,15 @@
+%% Story2Belief — three-layer architecture
+%% See docs/01-three-layer-architecture.md
+
+flowchart LR
+    Text[Short story] --> NarrPipe[Narrative pipeline]
+    NarrPipe --> NarrFeat["NarrativeFeatures: character / event / world / moral"]
+    Profile[ReaderProfile] --> Agent[Concordia reader agent]
+    NarrFeat --> Agent
+    Agent --> SWAS[Adapted SWAS self-report]
+    Agent --> Resp[Reading response + interpretation]
+    NarrFeat --> Bridge[Moral-transfer bridge]
+    Resp --> Bridge
+    PreDilemma[Pre-reading dilemma] --> Bridge
+    PostDilemma[Post-reading dilemma] --> Bridge
+    Bridge --> Delta["Transfer deltas: choice / confidence / justification"]
