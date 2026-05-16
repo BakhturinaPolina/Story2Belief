@@ -28,6 +28,9 @@ narrative:
   prompts:
     narrative_features: narrative_features.v0
     moral_extraction: moral_extraction.v0
+    narrative_feature_ordinal: narrative_feature_ordinal.v0
+  feature_sets:
+    narrative_discourse_table1: configs/narrative_discourse_features.yaml
 
 readers:
   prompts:

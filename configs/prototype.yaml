@@ -9,6 +9,15 @@ run:
   id: prototype_v0
   description: End-to-end demo across the three layers.
 
+narrative:
+  prompts:
+    narrative_feature_ordinal: narrative_feature_ordinal.v0
+  feature_sets:
+    narrative_discourse_table1: configs/narrative_discourse_features.yaml
+  annotation:
+    output_stage: narrative_feature_scores
+    output_version: v0
+
 corpus:
   texts:
     - TBD_fairy_tale

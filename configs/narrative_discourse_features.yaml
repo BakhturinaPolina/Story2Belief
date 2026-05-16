@@ -1,0 +1,84 @@
+# Narrative-Discourse feature inventory used with
+# src/story2belief/prompts/narrative_feature_ordinal.prompt.md.
+#
+# Source: narrative-discourse paper, Table 1 (+ reusable prompt frame).
+# This file preserves statements verbatim for reproducibility.
+
+prompt:
+  id: narrative_feature_ordinal.v0
+  template_variables:
+    - passage
+    - feature_statement
+
+scoring:
+  type: ordinal
+  labels:
+    2: strongly_present
+    1: weakly_present
+    0: not_present
+
+features:
+  - id: pov_agents
+    category: POV
+    name: Agents
+    statement: This passage focuses on the experience of one or more characters.
+  - id: pov_emotionality
+    category: POV
+    name: Emotionality
+    statement: This passage focuses on the characters' emotions.
+  - id: pov_perception
+    category: POV
+    name: Perception
+    statement: This passage lets you see the world through the eyes and bodies of the characters.
+  - id: pov_dialogue
+    category: POV
+    name: Dialogue
+    statement: The passage contains dialogue.
+  - id: time_temporal_specificity
+    category: TIME
+    name: Temporal Specificity
+    statement: This passage uses specific markers of time.
+  - id: time_event_sequences
+    category: TIME
+    name: Event Sequences
+    statement: This passage focuses on a series of sequential actions.
+  - id: time_eventfulness
+    category: TIME
+    name: Eventfulness
+    statement: This passage is very eventful.
+  - id: time_pastness
+    category: TIME
+    name: Pastness
+    statement: This passage is mostly written in the past tense.
+  - id: time_presentness
+    category: TIME
+    name: Presentness
+    statement: This passage is mostly written in the present tense.
+  - id: time_anachrony
+    category: TIME
+    name: Anachrony
+    statement: This passage tells of events that occur out of order.
+  - id: time_conflict
+    category: TIME
+    name: Conflict
+    statement: This passage focuses on some kind of conflict or problem.
+  - id: setting_location
+    category: SETTING
+    name: Location
+    statement: This passage focuses on description of a specific location.
+  - id: setting_concreteness
+    category: SETTING
+    name: Concreteness
+    statement: This passage focuses on specific concrete details, like objects, places, and surfaces that one can imagine seeing and feeling.
+  - id: setting_abstraction
+    category: SETTING
+    name: Abstraction
+    statement: This passage focuses on abstract ideas and concepts.
+  - id: setting_symbolism
+    category: SETTING
+    name: Symbolism
+    statement: This passage uses symbolic or metaphorical language.
+  - id: honeypot_emotional_meteorology
+    category: HONEYPOT
+    name: Emotional Meteorology
+    statement: This passage focuses on how the emotional states of characters influence the weather.

@@ -34,6 +34,19 @@ script fetches them. They are gitignored.
   for the agent self-report. Free for research use with citation.
   <https://www.moniekkuijpers.com/swas>.
 
+## Narrative-Discourse prompt provenance
+
+For reproducible narrative-feature annotation based on the Narrative-Discourse
+paper:
+
+- Prompt frame is stored as
+  `src/story2belief/prompts/narrative_feature_ordinal.prompt.md`
+  (`prompt_id: narrative_feature_ordinal.v0`).
+- Feature statements (Table 1, 16 features including honeypot) are stored as
+  `configs/narrative_discourse_features.yaml`.
+- Runs should persist outputs using the project naming pattern:
+  `{text_id}__narrative_feature_scores__v0.json`.
+
 ## Negative-control texts
 
 For experiments that need a non-narrative control (Layer 1 still runs,
