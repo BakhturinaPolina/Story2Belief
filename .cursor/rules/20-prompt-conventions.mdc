@@ -1,0 +1,39 @@
+---
+description: Conventions for LLM prompt files
+globs: src/story2belief/prompts/**,**/*.prompt.md
+alwaysApply: false
+---
+
+# Prompt conventions
+
+Each prompt is a versioned `*.prompt.md` file. The **first comment block** is
+the contract: inputs, outputs, and the LLM model class it was written for.
+
+## Required header
+
+```markdown
+<!--
+prompt_id: narrative_features.v0
+purpose: Extract POV / eventfulness / vividness from a short story.
+inputs:
+  - text (str): full story text
+outputs (JSON, must validate against narrative.schema.NarrativeFeatures):
+  - character: { count, protagonist, pov_type, dialogue_share }
+  - event: { eventfulness, conflict_density, realism }
+  - story_world: { concreteness, sensory_density }
+  - moral: { propositions: [...], foundations: [...], confidence }
+written_for: gpt-4o-class models with JSON mode
+-->
+```
+
+## Rules
+
+- **Versioning**: bump the `prompt_id` suffix (`.v0`, `.v1`) on any
+  semantically meaningful change. Old versions stay in git history.
+- **Output shape**: ask for JSON whenever downstream parsing is automated.
+  Reference the matching dataclass / pydantic model in the contract.
+- **No secrets**: never embed API keys, prompts must be safe to share.
+- **Ambiguity**: when extracting morals, ask for *multiple* candidates with
+  confidence scores, not a single forced label.
+- **Determinism**: prompts that produce structured features should request
+  `temperature=0` and JSON mode in the calling code.

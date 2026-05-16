@@ -1,0 +1,17 @@
+# Treat notebooks as text for nicer diffs.
+*.ipynb text eol=lf
+*.py    text eol=lf
+*.md    text eol=lf
+*.yaml  text eol=lf
+*.yml   text eol=lf
+*.toml  text eol=lf
+*.cff   text eol=lf
+
+# Mark large binary file types so Git stops trying to diff them.
+*.png binary
+*.jpg binary
+*.pdf binary
+*.parquet binary
+*.pt binary
+*.bin binary
+*.safetensors binary

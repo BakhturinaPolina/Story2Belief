@@ -1,0 +1,46 @@
+---
+description: Python style conventions for src/, scripts/, and tests/
+globs: src/**/*.py,scripts/**/*.py,tests/**/*.py
+alwaysApply: false
+---
+
+# Python style
+
+- **Type hints** on every public function, method, and dataclass field.
+- **Schemas** use `@dataclass(frozen=True, slots=True)` or `pydantic.BaseModel`.
+  Prefer pydantic when data crosses an LLM boundary.
+- **Logging**: `logger = logging.getLogger(__name__)`. Never use `print` for
+  runtime messages.
+- **Docstrings**: numpy-style. One-line summary + Parameters/Returns sections.
+- **Imports**: standard lib → third-party → first-party (`story2belief.*`).
+  `ruff`'s isort handles ordering automatically.
+
+## Examples
+
+```python
+import logging
+from dataclasses import dataclass
+
+logger = logging.getLogger(__name__)
+
+
+@dataclass(frozen=True, slots=True)
+class CharacterFeature:
+    """A single character extracted from a narrative.
+
+    Parameters
+    ----------
+    name : str
+        Canonical name (BookNLP cluster head).
+    salience : float
+        Normalized mention frequency in [0, 1].
+    """
+    name: str
+    salience: float
+```
+
+## Avoid
+
+- `print(...)` outside of one-off scripts.
+- Untyped `dict[str, Any]` payloads between layers — define a schema instead.
+- Mutable default arguments.

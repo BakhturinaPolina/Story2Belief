@@ -1,0 +1,39 @@
+---
+description: High-level Story2Belief project context and architecture
+alwaysApply: true
+---
+
+# Story2Belief — project context
+
+Story2Belief is a research prototype that models **narrative persuasion** as a
+three-layer pipeline:
+
+1. **Narrative-analysis** (`src/story2belief/narrative/`) — text → structured
+   `NarrativeFeatures` (character, event, story-world, moral).
+2. **AI readers** (`src/story2belief/readers/`) — synthetic `ReaderProfile`s
+   reading a text via a Concordia-style agent, producing an adapted
+   **SWAS**-based self-report (attention, emotional engagement, mental imagery,
+   transportation) plus character-alignment and moral-uptake confidence.
+3. **Moral-transfer bridge** (`src/story2belief/bridge/`) — pre/post moral
+   dilemmas; outputs deltas in choice, confidence, and justification-embedding
+   similarity to the story's extracted moral.
+
+## Layer rules
+
+- **Do not import upward.** `narrative` knows nothing about `readers`; `readers`
+  knows nothing about `bridge`. The glue lives in `scripts/` and notebooks.
+- Cross-layer data flows through the schemas in `narrative/schema.py` and
+  `readers/profile.py`. Update the matching docs in `docs/08-…` and `docs/09-…`
+  when you change them.
+
+## Conceptual sources
+
+When in doubt about terminology, see `docs/17-glossary.md`. The architecture
+diagram is in `docs/01-three-layer-architecture.md`. The 3-month prototype
+scope is in `docs/02-prototype-roadmap-3mo.md`.
+
+## Style at a glance
+
+- Python 3.11+, type hints, dataclasses or pydantic for schemas.
+- `logging` (not `print`), `pytest` for tests, `ruff` for lint and format.
+- Never commit secrets or `data/raw/`.

@@ -1,0 +1,46 @@
+---
+description: Conventions for the data/ tree and any code that touches it
+globs: data/**,src/story2belief/**/loaders.py,src/story2belief/**/io.py,scripts/**/*.py
+alwaysApply: false
+---
+
+# Data conventions
+
+## Directory roles
+
+- `data/raw/` — original texts and corpora. **Never committed.** Treat as
+  read-only.
+- `data/external/` — third-party datasets (MoralStory, STORAL, Moral Stories).
+  Downloaded by a script; gitignored.
+- `data/interim/` — partial pipeline outputs (e.g. tokenized texts, BookNLP
+  intermediate JSON). Disposable.
+- `data/processed/` — canonical artifacts consumed by downstream layers
+  (`narrative_features/`, `reader_profiles/`, `reading_responses/`,
+  `dilemma_responses/`, `moral_propositions/`).
+- `data/synthetic/` — generated reader cohorts; reproducible from a seed +
+  config.
+
+## Naming convention
+
+```
+{text_id}__{stage}__{version}.json
+```
+
+- `text_id` — slug from `configs/narrative_corpus.yaml` (e.g.
+  `cinderella_grimm_1857`).
+- `stage` — one of `raw`, `tokenized`, `booknlp`, `features`, `morals`.
+- `version` — `v0`, `v1`, … bumped on any schema or prompt change.
+
+## Loaders
+
+- A loader returns a typed object (dataclass / pydantic model), not a raw
+  `dict`. If the on-disk schema drifts, raise a clear `ValidationError`.
+- Always log the resolved path and schema version at `INFO`.
+- Never write into `data/raw/`. Writes go to `data/interim/` or
+  `data/processed/`.
+
+## Reproducibility
+
+- Every artifact in `data/processed/` is paired with a sibling
+  `*.meta.json` containing: `config_path`, `git_sha`, `prompt_versions`,
+  `model_id`, `seed`, `created_at`.

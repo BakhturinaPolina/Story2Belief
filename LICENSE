@@ -1,0 +1,13 @@
+TBD
+
+License for Story2Belief has not yet been chosen. Candidates under consideration:
+
+- MIT — permissive, simple, common for research code.
+- Apache-2.0 — permissive with explicit patent grant.
+- CC-BY-4.0 — for documentation and data, not code.
+- Dual: MIT for code in src/, CC-BY-4.0 for docs/ and any bundled corpora.
+
+Until a license is chosen, all rights are reserved by the author.
+
+Replace the contents of this file with the chosen license text once a decision
+is made (and record the decision as an ADR in docs/decisions/).

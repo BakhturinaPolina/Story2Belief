@@ -1,0 +1,77 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+*.egg
+.eggs/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+
+# --- Virtual environments ---
+.venv/
+venv/
+env/
+.python-version-local
+
+# --- uv ---
+# Keep uv.lock committed; uv caches are local.
+.uv-cache/
+
+# --- Editors / OS ---
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+
+# --- Jupyter ---
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# --- Project: secrets ---
+.env
+.env.*
+!.env.example
+
+# --- Project: data and outputs ---
+# Raw corpora are large and often licensed; never commit.
+data/raw/**
+!data/raw/.gitkeep
+!data/raw/**/.gitkeep
+data/external/**
+!data/external/.gitkeep
+
+# Interim and processed artifacts may be large; keep out by default.
+data/interim/**
+!data/interim/.gitkeep
+data/processed/**
+!data/processed/.gitkeep
+!data/processed/**/.gitkeep
+data/synthetic/**
+!data/synthetic/.gitkeep
+
+# --- Project: results ---
+results/**
+!results/.gitkeep
+!results/**/.gitkeep
+
+# --- Logs ---
+*.log
+logs/
+
+# --- Models / weights ---
+*.pt
+*.bin
+*.safetensors
+models/

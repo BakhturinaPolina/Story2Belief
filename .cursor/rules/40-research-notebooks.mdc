@@ -1,0 +1,41 @@
+---
+description: Structure expected of every research / demo notebook
+globs: notebooks/**/*.ipynb
+alwaysApply: false
+---
+
+# Research notebook structure
+
+Notebooks are for **exploration, demos, and figures only**. Anything that runs
+as part of an experiment must live in `scripts/` or `src/`.
+
+## Required cells
+
+1. **Title cell (markdown)**
+   ```
+   # <Notebook title>
+   - Date: YYYY-MM-DD
+   - Author: <name>
+   - Hypothesis: <one sentence>
+   - Inputs: <paths or config keys>
+   - Outputs: <paths or figures>
+   ```
+2. **Setup cell (code)** — imports, autoreload, `from story2belief import ...`,
+   load config from `configs/<name>.yaml`. No hardcoded paths.
+3. **Body** — one section per question, headed with a `## Markdown` cell.
+4. **Takeaways cell (markdown, last)** —
+   ```
+   ## Takeaways
+   - <one bullet per finding>
+   ## Next steps
+   - [ ] <todo>
+   ```
+
+## Hygiene
+
+- Run `Restart Kernel & Run All` before committing; commit cleared outputs only
+  when outputs are too large or include secrets.
+- Save expensive intermediate results to `data/interim/`, not pickled into the
+  notebook.
+- If the notebook proves an idea, port it into `src/story2belief/` and replace
+  the body with a thin demo that imports the new module.

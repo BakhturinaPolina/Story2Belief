@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+title: "Story2Belief: a computational model of narrative persuasion"
+message: "If you use this software or its conceptual framework, please cite it as below."
+type: software
+authors:
+  - family-names: Bakhturina
+    given-names: Polina
+repository-code: ""
+url: ""
+abstract: >
+  Story2Belief is a research prototype for modeling narrative persuasion as a
+  three-layer pipeline: an LLM-based narrative-analysis pipeline producing
+  structured text features, a population of AI readers with heterogeneous
+  psychological profiles, and a moral-transfer bridge that measures pre/post
+  changes in responses to novel moral dilemmas.
+keywords:
+  - narrative persuasion
+  - large language models
+  - generative agent-based modeling
+  - moral foundations
+  - story world absorption
+  - computational narratology
+license: TBD
+version: 0.0.1
+date-released: "2026-05-16"
