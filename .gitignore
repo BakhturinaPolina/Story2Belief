@@ -70,6 +70,14 @@ results/**
 *.log
 logs/
 
+# --- Local environment/tooling state ---
+.direnv/
+.envrc
+.cache/
+*.sqlite
+*.sqlite3
+*.db
+
 # --- Models / weights ---
 *.pt
 *.bin
