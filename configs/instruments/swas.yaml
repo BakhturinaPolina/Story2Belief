@@ -8,7 +8,7 @@
 #
 # The English item text is from Kuijpers et al. (2014) Table 6 (final
 # CFA solution; cf. paper PDF p. 109 and the SWAS distribution PDF
-# stored under docs/Kuijpers et al., 2014.pdf).
+# stored under docs/references/kuijpers-2014-swas.pdf (gitignored).
 #
 # Authoritative scoring + reliability + CFA code from Kuijpers herself:
 # OSF project https://osf.io/zf439/ — file "SWAS dimensions script.R"
@@ -32,7 +32,7 @@ source:
   url: https://www.moniekkuijpers.com/swas
   osf_project: https://osf.io/zf439/
   osf_validation_script: https://osf.io/mhvtb/  # SWAS dimensions script.R
-  pdf: docs/Kuijpers et al., 2014.pdf
+  pdf: docs/references/kuijpers-2014-swas.pdf
 license: >-
   Free for academic research use with citation. Not redistributed in
   this file beyond the item wording necessary for operational use; full

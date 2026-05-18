@@ -44,6 +44,11 @@ Thumbs.db
 .env.*
 !.env.example
 
+# --- Project: local reference PDFs (not published on GitHub) ---
+docs/references/**
+!docs/references/.gitkeep
+!docs/references/README.md
+
 # --- Project: data and outputs ---
 # Raw corpora are large and often licensed; never commit.
 data/raw/**

@@ -34,6 +34,8 @@ before they harden.
 ## Supporting material
 
 - `references.bib` — BibTeX for all cited works.
+- `references/` — local PDFs (SWAS paper, LIWC manual, persuasion synthesis).
+  **Gitignored**; see [`references/README.md`](references/README.md).
 - `diagrams/` — mermaid sources for figures.
 - `decisions/` — lightweight Architecture Decision Records (ADRs).
 

@@ -3,7 +3,8 @@
 The canonical schema lives in `src/story2belief/readers/profile.py`.
 
 The trait set distils the meta-analytic and high-citation evidence from
-the Core Narrative Transportation and Persuasion literature synthesis
+the literature synthesis in
+[`references/core-narrative-transportation-persuasion-phd.pdf`](references/core-narrative-transportation-persuasion-phd.pdf)
 (van Laer et al. 2014; Mazzocco et al. 2010; Appel & Richter 2010;
 Zwarun & Hall 2012; Thompson et al. 2018; Cohen et al. 2018) into a
 parsimonious 8-trait set plus a pseudo-Big5 field.

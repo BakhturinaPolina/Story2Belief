@@ -132,7 +132,9 @@ records the *current pinned versions* used by the prototype.
 ### Tools evaluated and excluded from the prototype
 
 - **LIWC-22** (Pennebaker et al. 2022). Closed-source, paid (~US$90
-  academic licence), English-first. Categories we considered useful
+  academic licence), English-first. Local manual (gitignored):
+  [`references/liwc-22-manual.pdf`](references/liwc-22-manual.pdf).
+  Categories we considered useful
   (Narrative Arc, Moralization, Perception subscales, Analytic /
   Clout / Authentic / Tone summary variables) are covered well enough
   for the prototype by SentiArt + `langextract` + BookNLP supersense
@@ -171,8 +173,9 @@ records the *current pinned versions* used by the prototype.
 
 ### Narrative persuasion and individual differences
 
-(See `Core Narrative Transportation and Persuasion Literature for a PhD.pdf`
-for the full citation-counted synthesis. Key papers below.)
+(See the local literature synthesis at
+[`references/core-narrative-transportation-persuasion-phd.pdf`](references/core-narrative-transportation-persuasion-phd.pdf)
+— gitignored, not on GitHub. Key papers below.)
 
 - Green & Brock (2000) — narrative transportation and persuasion.
 - Slater & Rouner (2002) — entertainment-education and reduced

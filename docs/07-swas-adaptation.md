@@ -12,7 +12,8 @@ dimensions:
 Reference: Kuijpers et al. (2014), *Exploring absorbing reading
 experiences*, Scientific Study of Literature 4(1).
 [doi:10.1075/ssol.4.1.05kui](https://doi.org/10.1075/ssol.4.1.05kui).
-Project page: <https://www.moniekkuijpers.com/swas>.
+Project page: <https://www.moniekkuijpers.com/swas>. Local PDF (gitignored):
+[`references/kuijpers-2014-swas.pdf`](references/kuijpers-2014-swas.pdf).
 
 ## Operational instrument
 
