@@ -7,20 +7,49 @@ psychological profiles encountering a narrative.
 
 Each agent is initialized from a `ReaderProfile` (see
 [`09-reader-trait-schema.md`](09-reader-trait-schema.md)) and runs through
-a four-step **reading loop**:
+a five-step **reading loop**:
 
 1. **Receive text** — full short-story text plus a small structured
-   summary (title, protagonist, setting). Length-budget aware.
-2. **Reflect** — generate a brief private interpretation (the agent's
+   summary (title, protagonist, setting) plus the relevant slice of
+   `NarrativeFeatures`. Length-budget aware.
+2. **Compute character similarity** — for each major character (those
+   with `character.salience[name] > threshold`), compute
+   `sim(reader, char) = cosine(reader.pseudo_big5, char.pseudo_big5)`.
+   The resulting per-character similarity vector is injected into the
+   SWAS-self-report prompt as `{{ character_similarity_table }}`.
+3. **Reflect** — generate a brief private interpretation (the agent's
    "what this story is about" in its own words).
-3. **Self-report** — answer the adapted SWAS items on 0–10 scales (see
-   [`07-swas-adaptation.md`](07-swas-adaptation.md)).
-4. **Express moral uptake** — verbalize the moral lesson the agent
+4. **Self-report** — answer the adapted SWAS items on 0–10 scales (see
+   [`07-swas-adaptation.md`](07-swas-adaptation.md)). Character-
+   alignment ratings are *informed by* but not *forced by* the
+   similarity table.
+5. **Express moral uptake** — verbalize the moral lesson the agent
    thinks the story conveys, with a confidence rating.
 
 The result is a `ReadingResponse` that includes interpretation text,
-SWAS scores, character-alignment scores, and the verbalized moral
-uptake. This object is the input to Layer 3.
+SWAS scores, character-alignment scores, per-character Big5
+similarities, and the verbalized moral uptake. This object is the input
+to Layer 3.
+
+## Why similarity rather than hard-coded slots
+
+Cohen et al. (2018) showed that raw demographic similarity (sex,
+nationality, age, city) does not reliably increase identification or
+persuasion. Ooms et al. (2019) and de Graaf (2014) showed that
+*perceived* similarity does. We therefore replace the previous
+demographic-slots placeholder on `narrative.character` with a
+similarity computed at read-time in a 5-dimensional pseudo-Big5 space:
+
+- **Character pseudo-Big5** comes from SentiArt (Jacobs 2019
+  "Figure Personality Profile") or an LLM fallback when SentiArt token
+  coverage is too thin.
+- **Reader pseudo-Big5** is sampled independently per-reader in
+  `readers/cohort.py` (truncated normal, mean 5.5, sd 1.8). Independence
+  from the other traits is a deliberate prototype choice to avoid
+  collinearity at small N; see [`09-reader-trait-schema.md`](09-reader-trait-schema.md).
+
+This produces non-trivial variance in reader↔character fit without
+hard-coding which character "matches" which reader.
 
 ## Implementation
 

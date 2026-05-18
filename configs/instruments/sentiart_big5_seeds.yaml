@@ -1,0 +1,185 @@
+# SentiArt seed words for character pseudo-Big5 projection.
+#
+# These English seed words are used to define the positive and negative
+# poles of each OCEAN dimension in the fastText `cc.en.300` vector space.
+# Following Jacobs (2019) §"Pseudo-Big 5" / "Figure Personality Profile"
+# (Frontiers in Robotics and AI, 6:53), each character token is located
+# in the 5-D space spanned by these axes:
+#
+#   axis_X = mean(VSM[positive_seeds_X]) - mean(VSM[negative_seeds_X])
+#
+# and the character's score on dimension X is the cosine of the
+# character vector with axis_X (rescaled to [0, 10]).
+#
+# Seed selection follows Jacobs (2019), which draws on:
+#   - Goldberg, L. R. (1992). "The development of markers for the
+#     Big-Five factor structure." Psychological Assessment, 4(1), 26-42.
+#     (100 unipolar markers + transparent bipolar inventory)
+#   - Thompson, E. R. (2008). "Development and validation of an
+#     International English Big-Five Mini-Markers."
+#     Personality and Individual Differences, 45(6), 542-548.
+#   - Osgood, C. E., Suci, G. J., & Tannenbaum, P. H. (1957).
+#     The measurement of meaning. (semantic differential)
+#
+# Pseudo-Big5 is "only loosely inspired by the OCEAN model" (Jacobs
+# 2019); we make no claim that this yields a validated personality
+# measurement for either characters or readers. It is a computational
+# proxy that drives reader-character similarity at read-time. See
+# docs/09-reader-trait-schema.md.
+
+instrument: sentiart_big5_seeds
+version: v0.1
+source:
+  citation: >-
+    Jacobs, A. M. (2019). Sentiment Analysis for Words and Fiction
+    Characters From the Perspective of Computational (Neuro-)Poetics.
+    Frontiers in Robotics and AI, 6, 53. doi:10.3389/frobt.2019.00053.
+  url: https://www.frontiersin.org/articles/10.3389/frobt.2019.00053/full
+  marker_sources:
+    - "Goldberg (1992) 100 unipolar markers"
+    - "Thompson (2008) International English Big-Five Mini-Markers"
+    - "Osgood et al. (1957) semantic differential"
+
+vsm:
+  language: en
+  embedding: fasttext
+  vsm_id: cc.en.300
+  notes: >-
+    Public fastText vectors (Common Crawl, 300d). The original Jacobs
+    (2019) implementation trained a task-specific fastText VSM on the
+    full Harry Potter corpus; we use the public English vectors for
+    the prototype and may swap in a per-text VSM later if coverage on
+    character tokens is too thin.
+
+dimensions:
+  - id: openness
+    label: Openness to experience / Intellect
+    code: O
+    positive_seeds:
+      - imaginative
+      - creative
+      - curious
+      - intellectual
+      - philosophical
+      - original
+      - inventive
+      - reflective
+    negative_seeds:
+      - unimaginative
+      - uncreative
+      - incurious
+      - unintellectual
+      - shallow
+      - conventional
+      - simple
+      - dull
+
+  - id: conscientiousness
+    label: Conscientiousness
+    code: C
+    positive_seeds:
+      - organized
+      - efficient
+      - systematic
+      - practical
+      - careful
+      - thorough
+      - disciplined
+      - reliable
+    negative_seeds:
+      - disorganized
+      - careless
+      - inefficient
+      - sloppy
+      - undependable
+      - reckless
+      - negligent
+      - impulsive
+
+  - id: extraversion
+    label: Extraversion
+    code: E
+    positive_seeds:
+      - extraverted
+      - talkative
+      - bold
+      - energetic
+      - sociable
+      - outgoing
+      - assertive
+      - enthusiastic
+    negative_seeds:
+      - shy
+      - quiet
+      - reserved
+      - withdrawn
+      - introverted
+      - bashful
+      - timid
+      - inhibited
+
+  - id: agreeableness
+    label: Agreeableness
+    code: A
+    positive_seeds:
+      - kind
+      - sympathetic
+      - warm
+      - cooperative
+      - helpful
+      - friendly
+      - generous
+      - compassionate
+    negative_seeds:
+      - cold
+      - unkind
+      - unsympathetic
+      - harsh
+      - rude
+      - cruel
+      - selfish
+      - hostile
+
+  - id: neuroticism
+    label: Neuroticism / Emotional Instability
+    code: N
+    positive_seeds:
+      # "Positive" pole of this dimension means HIGH neuroticism (i.e.
+      # emotional instability), following the conventional OCEAN coding
+      # used by Jacobs (2019). Project the character vector accordingly.
+      - anxious
+      - moody
+      - nervous
+      - temperamental
+      - fretful
+      - insecure
+      - tense
+      - jealous
+    negative_seeds:
+      - calm
+      - relaxed
+      - stable
+      - secure
+      - unemotional
+      - composed
+      - steady
+      - even-tempered
+
+# How to apply this file:
+#
+# 1. Load the fastText VSM (cc.en.300 by default).
+# 2. For each dimension D:
+#      axis_D = mean(VSM[positive_seeds_D]) - mean(VSM[negative_seeds_D])
+# 3. For each major character (from BookNLP coref cluster), collect a
+#    token-set: all clustered mentions + content words from attributed
+#    quotes (BookNLP) + content words from langextract-extracted traits
+#    and goals.
+# 4. char_vec = mean(VSM[token-set]) (skip OOV tokens).
+# 5. raw_score_D = cosine(char_vec, axis_D)
+# 6. Map raw scores to within-text percentiles over all major
+#    characters; rescale to [0, 10] and record on
+#    NarrativeFeatures.character.pseudo_big5[name].
+#
+# When VSM coverage for a character is too thin (< 5 in-vocab tokens),
+# fall back to the LLM prompt at prompts/character_big5.prompt.md and
+# set NarrativeFeatures.character.pseudo_big5_method[name] = "llm_fallback".

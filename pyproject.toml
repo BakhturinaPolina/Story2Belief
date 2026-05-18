@@ -30,10 +30,28 @@ dependencies = [
 
 [project.optional-dependencies]
 # Narrative-analysis pipeline (Layer 1).
+#
+# Tool responsibilities are listed in docs/04-narrative-pipeline.md and
+# docs/12-tools-and-resources.md. The prototype is English-only.
+#
+# - booknlp: deterministic entity/coref/quote/supersense/event tagger
+#   for English long-form text.
+# - langextract: LLM-driven structured extraction with source grounding
+#   (char_interval) for morals, scenes, POV, traits, goals.
+# - fasttext: backs SentiArt (Jacobs 2019) for valence/arousal/EP arc
+#   and character pseudo-Big5 projection. Public cc.en.300 vectors.
+# - transformers: hosts Vera (liujch1998/vera) for verisimilitude
+#   plausibility and DeBERTa-v3-MNLI for within-text contradiction
+#   density.
+# - sentence-transformers: typicality (k-NN distance to per-genre
+#   reference corpus) and Layer-3 justification similarity.
+# - SentiArt itself is not on PyPI; install separately per the README
+#   linked from docs/12-tools-and-resources.md, or vendor under tools/.
 nlp = [
     "spacy>=3.7",
-    # "booknlp",        # add via `uv add` when wired up
-    # "sentiart",       # cloned/installed separately, see docs/12-tools-and-resources.md
+    "booknlp>=1.0.8",
+    "langextract>=1.4",
+    "fasttext>=0.9.3",
     "transformers>=4.40",
     "sentence-transformers>=2.7",
     "scikit-learn>=1.4",

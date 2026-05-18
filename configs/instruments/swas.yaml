@@ -1,0 +1,220 @@
+# Story World Absorption Scale (SWAS) — operational instrument.
+#
+# Canonical 18-item, four-dimension scale validated by CFA in
+# Kuijpers, Hakemulder, Tan, & Doicaru (2014), "Exploring absorbing
+# reading experiences: Developing and validating a self-report scale to
+# measure story world absorption." Scientific Study of Literature 4(1).
+# doi:10.1075/ssol.4.1.05kui.
+#
+# The English item text is from Kuijpers et al. (2014) Table 6 (final
+# CFA solution; cf. paper PDF p. 109 and the SWAS distribution PDF
+# stored under docs/Kuijpers et al., 2014.pdf).
+#
+# Authoritative scoring + reliability + CFA code from Kuijpers herself:
+# OSF project https://osf.io/zf439/ — file "SWAS dimensions script.R"
+# (https://osf.io/mhvtb/, 1919 lines, psych::alpha + lavaan::cfa MLR
+# across all 5 SWAS studies). Cite this when reporting AI-reader
+# replications of the alpha / CFA workflow.
+#
+# Prototype scope: ENGLISH ONLY. German and Dutch translations exist
+# (paper Table 6 and the official SWAS distribution) but are not stored
+# in this YAML for the prototype. Field set is extensible by language
+# code (`text_<iso>`).
+
+instrument: swas
+version: v0.1-2014cfa
+source:
+  citation: >-
+    Kuijpers, M. M., Hakemulder, F., Tan, E. S., & Doicaru, M. M. (2014).
+    Exploring absorbing reading experiences: Developing and validating a
+    self-report scale to measure story world absorption. Scientific
+    Study of Literature, 4(1), 89-122. doi:10.1075/ssol.4.1.05kui.
+  url: https://www.moniekkuijpers.com/swas
+  osf_project: https://osf.io/zf439/
+  osf_validation_script: https://osf.io/mhvtb/  # SWAS dimensions script.R
+  pdf: docs/Kuijpers et al., 2014.pdf
+license: >-
+  Free for academic research use with citation. Not redistributed in
+  this file beyond the item wording necessary for operational use; full
+  context (German + Dutch translations, factor loadings, alphas) is in
+  the cited paper and OSF project.
+
+scale:
+  original:
+    type: likert
+    min: -3
+    max: 3
+    labels:
+      -3: "completely disagree"
+      0: "neutral"
+      3: "completely agree"
+  adapted:
+    # See docs/07-swas-adaptation.md. Probabilistic 0-10 ratings allow
+    # finer variance from stochastic LLM agents.
+    type: probabilistic
+    min: 0.0
+    max: 10.0
+
+dimensions:
+  - id: attention
+    label: Attention
+    description: >-
+      Focus on the story world; consequent loss of awareness of the
+      real world and elapse of time.
+    cfa_alpha_study2: 0.905
+  - id: transportation
+    label: Transportation
+    description: >-
+      Feeling of being transported to the story world while contact
+      with the actual world remains intact.
+    cfa_alpha_study2: 0.902
+  - id: emotional_engagement
+    label: Emotional Engagement
+    description: >-
+      Character-related feelings (sympathy, empathy, identification).
+    cfa_alpha_study2: 0.914
+  - id: mental_imagery
+    label: Mental Imagery
+    description: >-
+      Vividness of story-related imagery during reading (characters,
+      situations, settings).
+    cfa_alpha_study2: 0.795
+
+# 18 CFA-validated items (5 + 5 + 5 + 3). Item codes are the codes used
+# in Kuijpers et al. (2014) Table 6. Internal `id` is a stable
+# project-local identifier; `original_code` maps back to the paper.
+
+items:
+  # ----- Attention (5 items) -----
+  - id: swas_a1
+    dimension: attention
+    original_code: A1
+    text_en: >-
+      When I finished the story I was surprised to see that time had
+      gone by so fast.
+  - id: swas_a2
+    dimension: attention
+    original_code: A2
+    text_en: >-
+      When I was reading the story I was focused on what happened in
+      the story.
+  - id: swas_a3
+    dimension: attention
+    original_code: A3
+    text_en: I felt absorbed in the story.
+  - id: swas_a4
+    dimension: attention
+    original_code: A4
+    text_en: >-
+      The story gripped me in such a way that I could close myself off
+      for things that were happening around me.
+  - id: swas_a5
+    dimension: attention
+    original_code: A5
+    text_en: >-
+      I was reading in such a concentrated manner that I had forgotten
+      the world around me.
+
+  # ----- Transportation (5 items) -----
+  - id: swas_t1
+    dimension: transportation
+    original_code: T1
+    text_en: >-
+      When I was reading the story it sometimes seemed as if I were in
+      the story world too.
+  - id: swas_t2
+    dimension: transportation
+    original_code: T2
+    text_en: >-
+      When reading the story there were moments in which I felt that
+      the story world overlapped with my own world.
+  - id: swas_t3
+    dimension: transportation
+    original_code: T3
+    text_en: >-
+      The world of the story sometimes felt closer to me than the world
+      around me.
+  - id: swas_t4
+    dimension: transportation
+    original_code: T4
+    text_en: >-
+      When I was finished with reading the story it felt like I had
+      taken a trip to the world of the story.
+  - id: swas_t5
+    dimension: transportation
+    original_code: T5
+    text_en: >-
+      Because all of my attention went into the story, I sometimes felt
+      as if I could not exist separate from the story.
+
+  # ----- Emotional Engagement (5 items) -----
+  - id: swas_ee1
+    dimension: emotional_engagement
+    original_code: EE1
+    text_en: >-
+      When I read the story I could imagine what it must be like to be
+      in the shoes of the main character.
+  - id: swas_ee2
+    dimension: emotional_engagement
+    original_code: EE2
+    text_en: I felt sympathy for the main character.
+  - id: swas_ee3
+    dimension: emotional_engagement
+    original_code: EE3
+    text_en: I felt connected to the main character in the story.
+  - id: swas_ee4
+    dimension: emotional_engagement
+    original_code: EE4
+    text_en: I felt how the main character was feeling.
+  - id: swas_ee5
+    dimension: emotional_engagement
+    original_code: EE5
+    text_en: I felt for what happened in the story.
+
+  # ----- Mental Imagery (3 items) -----
+  - id: swas_ms1
+    dimension: mental_imagery
+    original_code: MS1
+    text_en: >-
+      When I was reading the story I had an image of the main character
+      in mind.
+  - id: swas_ms2
+    dimension: mental_imagery
+    original_code: MS2
+    text_en: >-
+      When I was reading the story I could see the situations happening
+      in the story being played out before my eyes.
+  - id: swas_ms3
+    dimension: mental_imagery
+    original_code: MS3
+    text_en: >-
+      I could imagine what the world in which the story took place
+      looked like.
+
+# Story2Belief-specific additions on top of the original SWAS.
+# Clearly labelled so that downstream analyses can include or exclude
+# them when reporting alignment with Kuijpers et al. (2014).
+# See docs/07-swas-adaptation.md.
+
+additions:
+  character_alignment:
+    label: Character alignment (per major character)
+    description: >-
+      Per-character relational valence elicited from the agent. Stored
+      as a dict keyed by character name; values in [-10, 10] where
+      positive = aligned/sympathetic, negative = antagonistic, 0 =
+      neutral. Drives Layer-3 character-conditioned moral transfer.
+    scale:
+      type: bipolar
+      min: -10.0
+      max: 10.0
+  moral_uptake_confidence:
+    label: Moral-uptake confidence
+    description: >-
+      Single 0-10 rating of how confident the agent is in the moral
+      lesson it has just verbalized. Distinct from Layer-3 dilemma-
+      response confidence; this one measures comprehension confidence.
+    scale:
+      type: probabilistic
+      min: 0.0
+      max: 10.0

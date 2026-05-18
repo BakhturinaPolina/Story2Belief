@@ -11,11 +11,21 @@ each layer:
 
 ```mermaid
 flowchart LR
-    Text[Short story] --> NarrPipe[Narrative pipeline]
-    NarrPipe --> NarrFeat["NarrativeFeatures: character / event / world / moral"]
-    Profile[ReaderProfile] --> Agent[Concordia reader agent]
+    Text[Short story] --> BookNLP[BookNLP: entities, coref, quotes, events]
+    Text --> langExtract[langextract: morals, scenes, POV, traits]
+    Text --> SentiArt[SentiArt: valence/arousal/AAP + char pseudo-Big5]
+    BookNLP --> NLI[DeBERTa-MNLI: contradiction density]
+    BookNLP --> Vera[Vera: event plausibility]
+    BookNLP --> NarrFeat["NarrativeFeatures: character / event / world / moral"]
+    langExtract --> NarrFeat
+    SentiArt --> NarrFeat
+    NLI --> NarrFeat
+    Vera --> NarrFeat
+    Profile["ReaderProfile: 8 traits + pseudo-Big5"] --> Agent[Concordia reader agent]
     NarrFeat --> Agent
-    Agent --> SWAS[Adapted SWAS self-report]
+    Agent --> Match["Big5 cosine sim: reader x each char"]
+    Match --> SWAS[Adapted SWAS self-report]
+    Agent --> SWAS
     Agent --> Resp[Reading response + interpretation]
     NarrFeat --> Bridge[Moral-transfer bridge]
     Resp --> Bridge
@@ -36,22 +46,32 @@ in slides.
 - **Output**: `narrative.schema.NarrativeFeatures` — structured JSON covering
   character, event, story-world, and moral feature families.
 - **Implemented in**: `src/story2belief/narrative/`.
-- **Key tools**: BookNLP (characters / quotes / coreference), SentiArt
-  (literary sentiment), `llm-story-morals`-style staged prompts (moral
-  extraction).
+- **Key tools** (English-only prototype):
+  - **BookNLP** — entities, character clustering, coreference, quote
+    attribution, supersense, event tagging.
+  - **`langextract`** — LLM-driven structured extraction with source
+    grounding (`char_interval`) for morals, scenes, POV, traits, goals.
+  - **SentiArt** — valence/arousal/AAP arc and per-character pseudo-Big5
+    via fastText `cc.en.300` VSM.
+  - **Vera** (`liujch1998/vera`) — commonsense plausibility for the
+    verisimilitude family.
+  - **DeBERTa-v3-MNLI** — within-text contradiction density for
+    narrative consistency.
 - **Doc**: [`04-narrative-pipeline.md`](04-narrative-pipeline.md),
   [`08-narrative-feature-schema.md`](08-narrative-feature-schema.md).
 
 ### Layer 2: AI-reader pipeline
 
-- **Input**: a `ReaderProfile` (synthetic, theory-constrained) and a
-  `NarrativeFeatures` record.
+- **Input**: a `ReaderProfile` (synthetic, theory-constrained, 8 traits
+  + pseudo-Big5) and a `NarrativeFeatures` record.
 - **Output**: a `ReadingResponse` containing the adapted SWAS self-report
-  (attention, emotional engagement, mental imagery, transportation) plus two
-  added fields (character alignment, moral-uptake confidence) and a
-  free-text interpretation.
+  (attention, emotional engagement, mental imagery, transportation) plus
+  three added fields (character alignment, moral-uptake confidence, per-
+  character Big5 cosine similarities) and a free-text interpretation.
 - **Implemented in**: `src/story2belief/readers/`.
-- **Key tool**: Concordia (or similar) for memory + reflection.
+- **Key tool**: Concordia (or similar) for memory + reflection. Matching
+  is computed as cosine similarity between the reader's pseudo-Big5 and
+  each major character's pseudo-Big5 (Jacobs 2019-style).
 - **Doc**: [`05-reader-pipeline.md`](05-reader-pipeline.md),
   [`07-swas-adaptation.md`](07-swas-adaptation.md),
   [`09-reader-trait-schema.md`](09-reader-trait-schema.md).

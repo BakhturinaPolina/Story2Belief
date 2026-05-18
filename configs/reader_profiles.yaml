@@ -2,6 +2,10 @@
 #
 # All ranges are theory-constrained but synthetic; they do not claim to
 # match any real population. See docs/09-reader-trait-schema.md.
+#
+# Trait set distilled from van Laer et al. (2014) meta-analytic
+# values, Mazzocco et al. (2010), Appel & Richter (2010), Zwarun & Hall
+# (2012), Thompson et al. (2018), and Cohen et al. (2018).
 
 defaults:
   distribution: truncated_normal
@@ -20,13 +24,15 @@ traits:
   need_for_cognition:
     mean: 5.5
     sd: 1.5
+  sensation_seeking:
+    mean: 5.0
+    sd: 1.8
+  prior_familiarity:
+    # Renamed from `theme_relevance` to match the meta-analysis
+    # vocabulary (Green 2004; van Laer et al. 2014).
+    mean: 5.0
+    sd: 2.0
   reading_exposure:
-    mean: 5.0
-    sd: 2.0
-  theme_relevance:
-    mean: 5.0
-    sd: 2.0
-  realism_preference:
     mean: 5.0
     sd: 2.0
   source_memory_decay:
@@ -51,6 +57,27 @@ baseline_moral_foundation_scores:
     mean: 4.5
     sd: 2.0
 
+# Pseudo-Big5 (O, C, E, A, N) for reader-character similarity matching.
+# Sampled INDEPENDENTLY of the other traits for the prototype to avoid
+# collinearity at small N. See docs/09-reader-trait-schema.md for the
+# rationale; this is not a validated personality measurement.
+pseudo_big5:
+  openness:
+    mean: 5.5
+    sd: 1.8
+  conscientiousness:
+    mean: 5.5
+    sd: 1.8
+  extraversion:
+    mean: 5.5
+    sd: 1.8
+  agreeableness:
+    mean: 5.5
+    sd: 1.8
+  neuroticism:
+    mean: 5.5
+    sd: 1.8
+
 # Force-include extreme contrast pairs so trait-driven differences are
 # visible at small N.
 contrast_pairs:
@@ -58,3 +85,9 @@ contrast_pairs:
   - low_transport_low_empathy
   - high_nfc_low_nfa
   - low_nfc_high_nfa
+  # NEW: contrast pairs for the two added traits with strongest
+  # meta-analytic backing (Thompson et al. 2018; van Laer et al. 2014).
+  - high_sensation_seeking_low_empathy
+  - low_sensation_seeking_high_empathy
+  - high_prior_familiarity_low_realism_genre
+  - low_prior_familiarity_high_realism_genre
